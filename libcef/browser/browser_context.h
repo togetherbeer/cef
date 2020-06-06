@@ -12,6 +12,7 @@
 #include "libcef/browser/chrome_profile_stub.h"
 #include "libcef/browser/request_context_handler_map.h"
 #include "libcef/browser/resource_context.h"
+#include "libcef/browser/permission_manager.h"
 
 #include "base/callback.h"
 #include "base/files/file_path.h"
@@ -306,6 +307,7 @@ class CefBrowserContext : public ChromeProfileStub,
   std::unique_ptr<PrefProxyConfigTracker> pref_proxy_config_tracker_;
 
   std::unique_ptr<CefDownloadManagerDelegate> download_manager_delegate_;
+  std::unique_ptr<PermissionManager> permission_manager_;
   std::unique_ptr<CefSSLHostStateDelegate> ssl_host_state_delegate_;
   scoped_refptr<HostContentSettingsMap> host_content_settings_map_;
   std::unique_ptr<visitedlink::VisitedLinkWriter> visitedlink_master_;

@@ -495,7 +495,13 @@ content::SSLHostStateDelegate* CefBrowserContext::GetSSLHostStateDelegate() {
 
 content::PermissionControllerDelegate*
 CefBrowserContext::GetPermissionControllerDelegate() {
-  return nullptr;
+  if (!permission_manager_.get())
+    permission_manager_.reset(new PermissionManager());
+  return permission_manager_.get();
+}
+
+CefBrowserContext::SetPermissionControllerDelegate(content::PermissionControllerDelegate* delegate) {
+  permission_manager_.reset(delegate);
 }
 
 content::BackgroundFetchDelegate*
