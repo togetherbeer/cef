@@ -87,6 +87,7 @@
 
 class CefDownloadManagerDelegate;
 class CefMediaRouterManager;
+class CefPermissionControllerDelegate;
 class CefRequestContextImpl;
 class CefSSLHostStateDelegate;
 class CefVisitedLinkListener;
@@ -279,6 +280,8 @@ class CefBrowserContext : public ChromeProfileStub,
   // Called from DownloadPrefs::FromBrowserContext.
   DownloadPrefs* GetDownloadPrefs();
 
+  void SetPermissionControllerDelegate(content::PermissionControllerDelegate* delegate);
+
   // Returns true if this context supports print preview.
   bool IsPrintPreviewSupported() const;
 
@@ -306,6 +309,7 @@ class CefBrowserContext : public ChromeProfileStub,
   std::unique_ptr<PrefProxyConfigTracker> pref_proxy_config_tracker_;
 
   std::unique_ptr<CefDownloadManagerDelegate> download_manager_delegate_;
+  std::unique_ptr<CefPermissionControllerDelegate> permission_controller_delegate_;
   std::unique_ptr<CefSSLHostStateDelegate> ssl_host_state_delegate_;
   scoped_refptr<HostContentSettingsMap> host_content_settings_map_;
   std::unique_ptr<visitedlink::VisitedLinkWriter> visitedlink_master_;

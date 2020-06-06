@@ -9,6 +9,7 @@
 
 #include "libcef/browser/content_browser_client.h"
 #include "libcef/browser/download_manager_delegate.h"
+#include "libcef/browser/permission_controller_delegate.h"
 #include "libcef/browser/extensions/extension_system.h"
 #include "libcef/browser/media_router/media_router_manager.h"
 #include "libcef/browser/prefs/browser_prefs.h"
@@ -495,7 +496,9 @@ content::SSLHostStateDelegate* CefBrowserContext::GetSSLHostStateDelegate() {
 
 content::PermissionControllerDelegate*
 CefBrowserContext::GetPermissionControllerDelegate() {
-  return nullptr;
+  if (!permission_controller_delegate_.get())
+    permission_controller_delegate_.reset(new CefPermissionControllerDelegate());
+  return permission_controller_delegate_.get();
 }
 
 content::BackgroundFetchDelegate*
